@@ -34,6 +34,13 @@ df['cleaned_review'] = df['review'].apply(preprocess_text)  # Replace 'review' w
 df['sentiment'] = df['cleaned_review'].apply(analyze_sentiment)
 
 # Save results to a new CSV file
-df.to_csv('sentiment_analysis_results.csv', index=False)
+#df.to_csv('sentiment_analysis_results.csv', index=False)
+# Count occurrences
+sentiment_counts = df['sentiment'].value_counts()
 
-print("Sentiment analysis complete. Results saved to sentiment_analysis_results.csv")
+# Plot pie chart
+plt.figure(figsize=(8, 8))
+plt.pie(sentiment_counts, labels=sentiment_counts.index, autopct='%1.1f%%', startangle=140)
+plt.axis('equal')  # Equal aspect ratio ensures the pie chart is circular.
+plt.title('Sentiment Distribution')
+plt.show()
